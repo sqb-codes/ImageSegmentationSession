@@ -62,6 +62,8 @@ X_test = np.zeros((test_n, IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS),
                    dtype=np.uint8)
 
 for i in tqdm(range(test_n)):
+   if TEST_IMAGES_DIR[i].startswith("."):
+      continue
    img_path = TEST_PATH + "/" + TEST_IMAGES_DIR[i] + "/images/"
    img_name = os.listdir(img_path)[0]
    img = imread(img_path + "/" + img_name)[:,:,:IMG_CHANNELS]
@@ -139,30 +141,30 @@ model.compile(optimizer="adam", loss="binary_crossentropy",
               metrics=["accuracy"])
 
 # Including checkpoints
-checkpoint = tf.keras.callbacks.ModelCheckpoint('model_ckpt.h5', 
-                                   save_best_only=True, verbose=1)
+# checkpoint = tf.keras.callbacks.ModelCheckpoint('model_ckpt.h5', 
+#                                    save_best_only=True, verbose=1)
 
-callbacks = [
-    tf.keras.callbacks.EarlyStopping(patience=2),
-    tf.keras.callbacks.TensorBoard(log_dir="logs")]
+# callbacks = [
+#     tf.keras.callbacks.EarlyStopping(patience=2),
+#     tf.keras.callbacks.TensorBoard(log_dir="logs")]
 
 
 results = model.fit(X_train, Y_train, validation_split=0.1,
-                    batch_size=16, epochs=10, callbacks=callbacks)
+                    batch_size=16, epochs=10)
 
 
-plt.title("Model Training Plot")
-plt.plot(results.history['accuracy'], label="Train Accuracy")
-plt.plot(results.history['val_accuracy'], label="Val Accuracy")
-plt.legend()
-plt.show()
+# plt.title("Model Training Plot")
+# plt.plot(results.history['accuracy'], label="Train Accuracy")
+# plt.plot(results.history['val_accuracy'], label="Val Accuracy")
+# plt.legend()
+# plt.show()
 
 
-plt.title("Model Loss Plot")
-plt.plot(results.history['loss'], label="Train Loss")
-plt.plot(results.history['val_loss'], label="Val Loss")
-plt.legend()
-plt.show()
+# plt.title("Model Loss Plot")
+# plt.plot(results.history['loss'], label="Train Loss")
+# plt.plot(results.history['val_loss'], label="Val Loss")
+# plt.legend()
+# plt.show()
 
 
 # Test model

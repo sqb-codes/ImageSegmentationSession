@@ -7,16 +7,12 @@ st.set_page_config(layout="wide")
 st.title("Nuclie Segementation App")
 
 img = st.sidebar.selectbox(
-    "Select Image", ("test_img_1.png",
-                     "test_img_2.png",
-                     "test_img_3.png",
-                     "test_img_4.png",
-                     "test_img_5.png",
-                     "test_img_6.jpg",
-                     "test_1.jpg","img_1.jpg","img_3.jpeg")
+    "Select Image", ("test-img-1.png",
+                     "test-img-2.png",
+                     "test-img-4.jpg")
 )
 
-input_image = "test_images/" + img
+input_image =  img
 
 image = Image.open(input_image)
 st.image(image, width=400)
